@@ -20,6 +20,17 @@ module.exports = {
         }catch(error){
           console.error('Erro al eliminar el registro', error);
         }
+    },
+
+    // Insertar un estudiante
+     insertarEstudiante: async(nuevoEstudiante) => {
+        try{
+          const result = await pool.query("INSERT INTO estudiantes SET ? ", nuevoEstudiante);
+          return result.insertId;
+
+        }catch(error){
+          console.error('Erro al eliminar el registro', error);
+        }
     }
 }
 

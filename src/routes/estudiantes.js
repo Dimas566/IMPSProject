@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const queries = require('../repositories/EstudianteRepository');
+const carrerasQuery = require('../repositories/CarreraRepository');
 
 // Endpoint para mostrar todos los estudiantes
 router.get('/', async (request, response) => {
@@ -11,13 +12,20 @@ router.get('/', async (request, response) => {
 
 // Endpoint que permite mostrar el formulario para agregar un nuevo estudiante
 router.get('/agregar', async(request, response) => {
+    const lstCarreras = await carrerasQuery.obtenerTodosLasCarreras();
     // Renderizamos el formulario
-    response.render('estudiantes/agregar');
+    response.render('estudiantes/agregar', {lstCarreras});
 });
 
 // Endpoint para agregar un estudiante
 router.post('/agregar', async(request, response) => {
     // Falta agregar logica
+    const { idestudiante, nombre,apellido, email, idcarrera, usuario } = request.body;
+    const nuevoEstudiante = { idestudiante, nombre, apellido, email, idcarrera, usuario };
+
+    const resultado = await queries.insertarEstudiante(nuevoEstudiante);
+
+    response.redirect('/estudiantes');
 });
 
 // Endpoint que permite eliminar un estudiante

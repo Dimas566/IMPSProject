@@ -31,6 +31,27 @@ module.exports = {
         }catch(error){
           console.error('Erro al eliminar el registro', error);
         }
+    },
+
+    // Actualizar un estudiante
+    actualizarEstudiante: async(idestudiante, actualizacion) => {
+      try {
+        const resultado = await pool.query('UPDATE estudiantes SET ? WHERE idestudiante = ?', [actualizacion, idestudiante]);
+        return resultado.affectedRows > 0;  
+      } catch (error) {
+        console.log('Error al actualizar estudiante', error);
+      }
+    },
+
+    // Obtener estudiante por ID
+    obtenerEstudiantePorID: async(idestudiante) => {
+      try {
+        const [estudiante] = await pool.query('SELECT * FROM estudiantes WHERE idestudiante = ?', [idestudiante]);
+
+        return estudiante;
+      } catch (error) {
+        console.log('Ocurrio un problema al obtener informacion del estudiante');
+      }
     }
 }
 

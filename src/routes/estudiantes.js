@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const queries = require('../repositories/EstudianteRepository');
 const carrerasQuery = require('../repositories/CarreraRepository');
+const Swal = require('sweetalert2');
 
 // Endpoint para mostrar todos los estudiantes
 router.get('/', async (request, response) => {
@@ -13,10 +14,16 @@ router.get('/', async (request, response) => {
 // Endpoint que permite mostrar el formulario para agregar un nuevo estudiante
 router.get('/agregar', async(request, response) => {
    
-    const lstCarreras = await carrerasQuery.obtenerTodosLasCarreras();
+   /* const lstCarreras = await carrerasQuery.obtenerTodosLasCarreras();
 
     // Renderizamos el formulario
-    response.render('estudiantes/agregar', {lstCarreras});
+    response.render('estudiantes/agregar', {lstCarreras});*/
+        Swal.fire({
+        title: 'Hola',
+        text: 'Este es un ejemplo de SweetAlert en Handlebars.',
+        icon: 'success',
+        confirmButtonText: '¡Entendido!'
+    });
 });
 
 // Endpoint para agregar un estudiante
